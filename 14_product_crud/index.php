@@ -1,8 +1,16 @@
 <?php
     require_once "helpers/databaseConnection.php"; 
-    
-    //exec is not best practise
-    $statment = $pdo->prepare('SELECT * FROM products ORDER BY create_date DESC');
+
+    $search = $_GET['search'] ?? ''; // echo $search;
+
+    if (!empty($search)) {
+        $statment = $pdo->prepare('SELECT * FROM products WHERE title LIKE :title ORDER BY create_date DESC');
+        $statment->bindValue(':title', "%$search%");
+    } else {
+        //exec is not best practise
+        $statment = $pdo->prepare('SELECT * FROM products ORDER BY create_date DESC');
+    }
+
     $statment->execute();
     $products = $statment->fetchAll(PDO::FETCH_ASSOC); // Fetch as Associative array.
 ?>
@@ -12,6 +20,18 @@
 
     <?php require_once "components/create_btn.php"; ?>
 
+    <form submit="" method="GET">
+        <div class="input-group mb-3">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Search for products"
+                name="search"
+                value="<?php echo $search ?>"
+            >
+            <button class="btn btn-outline-secondary" type="submit" id="button-search">Search</button>
+        </div>
+    </form>
     <table class="table">
         <thead>
             <tr>

@@ -50,7 +50,7 @@
                     <td>
                         <img
                             class="thumb-image" 
-                            src="<?php echo $product['image'] ?>" 
+                            src="/<?php echo $product['image'] ?>" 
                         />
                     </td>
                     <td><?php echo $product['title'] ?></td>

@@ -12,7 +12,7 @@
 <form action="" method="POST" enctype="multipart/form-data">
 
     <?php if ($product['image']): ?>
-        <img src="<?php echo $product['image'] ?>" class="update_image">
+        <img src="/<?php echo $product['image'] ?>" class="update_image">
     <?php elseif (!$product['image']): ?>
         <?php echo "This product has no image!" ?>
     <?php endif; ?>

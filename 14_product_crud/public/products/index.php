@@ -1,5 +1,5 @@
 <?php
-    require_once "../helpers/databaseConnection.php"; 
+    require_once "../../helpers/databaseConnection.php"; 
 
     $search = $_GET['search'] ?? ''; // echo $search;
 
@@ -15,10 +15,10 @@
     $products = $statment->fetchAll(PDO::FETCH_ASSOC); // Fetch as Associative array.
 ?>
 
-<?php require_once "components/header.php"; ?> 
+<?php require_once "../../views/components/header.php"; ?> 
     <h1>Products CRUD</h1>
 
-    <?php require_once "components/create_btn.php"; ?>
+    <?php require_once "../../views/components/create_btn.php"; ?>
 
     <form submit="" method="GET">
         <div class="input-group mb-3">
@@ -73,4 +73,4 @@
             <?php endforeach; ?>
         </tbody>
         </table>
-<?php include_once "components/footer.php"; ?> 
+<?php include_once "../../views/components/footer.php"; ?> 

@@ -1,7 +1,7 @@
 
 <?php
-    require_once "../helpers/databaseConnection.php"; 
-    require_once "../helpers/randomString.php"; 
+    require_once "../../helpers/databaseConnection.php"; 
+    require_once "../../helpers/randomString.php"; 
     
     // Ensure to set to NULL if no value exist to avoid runtime error
     $id = $_GET['id'] ?? null;
@@ -23,7 +23,7 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
-        require_once "products/validate.php";
+        require_once "../../views/products/validate.php";
 
         // Update the product
         if (empty($errors)) {
@@ -42,10 +42,10 @@
     }
 ?>
 
-<?php include_once "components/header.php"; ?> 
+<?php include_once "../../views/components/header.php"; ?> 
     <h1>Update a product</h1>
 
-    <?php require_once "components/goBack_btn.php"; ?>
-    <?php require_once "products/form.php"; ?>
+    <?php require_once "../../views/components/goBack_btn.php"; ?>
+    <?php require_once "../../views/products/form.php"; ?>
 
-<?php include_once "components/footer.php"; ?> 
+<?php include_once "../../views/components/footer.php"; ?> 

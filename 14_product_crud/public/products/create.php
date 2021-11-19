@@ -1,7 +1,7 @@
 
 <?php
-    require_once "../helpers/databaseConnection.php"; 
-    require_once "../helpers/randomString.php"; 
+    require_once "../../helpers/databaseConnection.php"; 
+    require_once "../../helpers/randomString.php"; 
 
     $errors = [];
     $title = '';
@@ -11,7 +11,7 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {        
         if (empty($errors)) {
 
-            require_once "products/validate.php";
+            require_once "../../views/products/validate.php";
 
             // Talk to the database! Firstly get read with query
             // Avoid directly to run 'exec'! SQL injection code may attempt!
@@ -32,10 +32,10 @@
     }
 ?>
 
-<?php include_once "components/header.php"; ?> 
+<?php include_once "../../views/components/header.php"; ?> 
     <h1>Create new product</h1>
 
-    <?php require_once "components/goBack_btn.php"; ?>
-    <?php require_once "products/form.php"; ?>
+    <?php require_once "../../views/components/goBack_btn.php"; ?>
+    <?php require_once "../../views/products/form.php"; ?>
 
-<?php include_once "components/footer.php"; ?> 
+<?php include_once "../../views/components/footer.php"; ?> 

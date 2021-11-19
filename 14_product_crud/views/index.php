@@ -1,5 +1,5 @@
 <?php
-    require_once "helpers/databaseConnection.php"; 
+    require_once "../helpers/databaseConnection.php"; 
 
     $search = $_GET['search'] ?? ''; // echo $search;
 

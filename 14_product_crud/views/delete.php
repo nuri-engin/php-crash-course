@@ -1,5 +1,5 @@
 <?php
-    require_once "helpers/databaseConnection.php"; 
+    require_once "../helpers/databaseConnection.php"; 
 
     // Ensure to set to NULL if no value exist to avoid runtime error
     $id = $_POST['id'] ?? null;

@@ -62,7 +62,6 @@
             // Talk to the database! Firstly get read with query
             $statement = $pdo->prepare("INSERT INTO products (title, image, description, price, create_date)
                 VALUES:(:title, :image, :description, :price, :date)");
-
             // Ensure the query values are filled.
             $statement->bindValue(':title', $title);
             $statement->bindValue(':image', $imagePath);

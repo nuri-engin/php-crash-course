@@ -50,12 +50,12 @@
             $image = $_FILES['image'] ?? null;
             $imagePath = '';
 
-            // Ensure products' previous file has been removed!
-            if ($product['image']) {
-                unlink($product['image']);
-            }
-
             if ($image && $image['tmp_name']) {
+                // Ensure products' previous file has been removed!
+                if ($product['image']) {
+                    unlink($product['image']);
+                }
+
                 // Need to be sure PATH of file should be unique
                 $imagePath = 'images/'.randomString(8).'/'.$image['name'];
                 
@@ -63,15 +63,17 @@
                 move_uploaded_file($image['tmp_name'], $imagePath);
             }
 
-            $statement = $pdo->prepare("INSERT INTO products (title, image, description, price, create_date)
-                VALUES:(:title, :image, :description, :price, :date)");
-
+            // Talk to the database!
+            $statement = $pdo->prepare("UPDATE products SET title =:title, image = :image, description = :description, price = :price WHERE id = :id");
+            $statement->bindValue(':id', $id);
             $statement->bindValue(':title', $title);
             $statement->bindValue(':image', $imagePath);
             $statement->bindValue(':description', $description);
             $statement->bindValue(':price', $price);
             $statement->bindValue(':date', $date);
-            // $statement->execute();
+            $statement->execute();
+            
+            // Fly back dear user...
             header('Location: index.php');   
         }     
     }

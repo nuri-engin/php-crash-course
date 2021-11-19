@@ -26,6 +26,7 @@
         $price = $_POST['price'];
         $date = date('Y-m-d H:i:s');
 
+        // Validation process starts;
         if (!$title) {
             $errors[] = "Please provide TITLE!";
         }
@@ -34,6 +35,7 @@
             $errors[] = "Please provide price!";
         }
 
+        // Ensure the required folder exist to be able to save the file.
         if(!is_dir('images')) {
             mkdir('images');
         }
@@ -57,15 +59,19 @@
             //     VALUES:('$title', '', '$description', $price, '$date')
             // ");
 
+            // Talk to the database! Firstly get read with query
             $statement = $pdo->prepare("INSERT INTO products (title, image, description, price, create_date)
                 VALUES:(:title, :image, :description, :price, :date)");
 
+            // Ensure the query values are filled.
             $statement->bindValue(':title', $title);
             $statement->bindValue(':image', $imagePath);
             $statement->bindValue(':description', $description);
             $statement->bindValue(':price', $price);
             $statement->bindValue(':date', $date);
             // $statement->execute();
+
+            // Fly back dear user...
             header('Location: index.php');   
         }     
     }

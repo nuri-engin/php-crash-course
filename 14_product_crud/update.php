@@ -3,14 +3,16 @@
     require_once "helpers/databaseConnection.php"; 
     require_once "helpers/randomString.php"; 
     
-
+    // Ensure to set to NULL if no value exist to avoid runtime error
     $id = $_GET['id'] ?? null;
 
+    // User may come without a proper ID value!
     if (!$id) {
         header('Location: index.php');
         exit;
     }
 
+    // Talk to the database!
     $statement = $pdo->prepare('SELECT * FROM products WHERE id = :id');
     $statement->bindValue(':id', $id);
     $statement->execute();
@@ -20,17 +22,16 @@
     // exit;
 
     $errors = [];
-    $title = '';
-    $price = '';
-    $description = '';
-
+    $title = $product['title'];
+    $price = $product['price'];
+    $description = $product['description'];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $title = $_POST['title'];
         $description = $_POST['description'];
         $price = $_POST['price'];
-        $date = date('Y-m-d H:i:s');
 
+        // Validation process starts;
         if (!$title) {
             $errors[] = "Please provide TITLE!";
         }
@@ -39,6 +40,7 @@
             $errors[] = "Please provide price!";
         }
 
+        // Ensure the required folder exist to be able to save the file.
         if(!is_dir('images')) {
             mkdir('images');
         }
@@ -47,6 +49,11 @@
 
             $image = $_FILES['image'] ?? null;
             $imagePath = '';
+
+            // Ensure products' previous file has been removed!
+            if ($product['image']) {
+                unlink($product['image']);
+            }
 
             if ($image && $image['tmp_name']) {
                 // Need to be sure PATH of file should be unique

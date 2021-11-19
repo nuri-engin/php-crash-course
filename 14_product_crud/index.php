@@ -7,7 +7,7 @@
     $products = $statment->fetchAll(PDO::FETCH_ASSOC); // Fetch as Associative array.
 ?>
 
-<?php include_once "components/header.php"; ?> 
+<?php require_once "components/header.php"; ?> 
     <h1>Products CRUD</h1>
 
     <?php require_once "components/create_btn.php"; ?>

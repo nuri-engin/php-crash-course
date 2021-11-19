@@ -13,4 +13,28 @@
             Create Product
         </a>
     </p>
+
+    <form>
+        <div class="mb-3">
+            <label class="form-label">Product Image</label>
+            <input type="file" class="form-control">
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Product Title</label>
+            <input type="text" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Product Description</label>
+            <textarea class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Product Price</label>
+            <input type="number" step=".01" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 <?php include_once "components/footer.php"; ?> 

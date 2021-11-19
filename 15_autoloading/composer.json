@@ -1,0 +1,17 @@
+{
+    "name": "nuri/15_autoloading",
+    "authors": [
+        {
+            "name": "Nuri Engin",
+            "email": "nuri@engin.web.tr"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "./app"
+        }
+    }
+}

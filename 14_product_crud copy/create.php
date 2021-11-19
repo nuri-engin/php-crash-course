@@ -1,0 +1,16 @@
+
+<?php
+    //Database Connection with PDO (more powerfull, OOP) instead mysqli
+    $pdo = new PDO('mysql:host=localhost;port=3306;dbname=products_crud', 'root', '');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+?>
+
+<?php include_once "components/header.php"; ?> 
+    <h1>Create new product</h1>
+
+    <p>
+        <a href="create.php" class="btn btn-success">
+            Create Product
+        </a>
+    </p>
+<?php include_once "components/footer.php"; ?> 

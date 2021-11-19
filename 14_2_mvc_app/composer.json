@@ -1,0 +1,15 @@
+{
+    "name": "nuri/14_2_mvc_app",
+    "authors": [
+        {
+            "name": "Nuri Engin",
+            "email": "nuri@engin.web.tr"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    }
+}

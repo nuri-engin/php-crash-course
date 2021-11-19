@@ -1,11 +1,8 @@
 
 <?php
+    require_once "helpers/databaseConnection.php"; 
     require_once "helpers/randomString.php"; 
-
-    //Database Connection with PDO (more powerfull, OOP) instead mysqli
-    $pdo = new PDO('mysql:host=localhost;port=3306;dbname=products_crud', 'root', '');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+    
     // echo randomString(8);
     // exit;
 
@@ -60,7 +57,7 @@
             //     VALUES:('$title', '', '$description', $price, '$date')
             // ");
 
-            $statement = $pdo->prepare("INSERT INTO products(title, image, description, price, create_date)
+            $statement = $pdo->prepare("INSERT INTO products (title, image, description, price, create_date)
                 VALUES:(:title, :image, :description, :price, :date)");
 
             $statement->bindValue(':title', $title);

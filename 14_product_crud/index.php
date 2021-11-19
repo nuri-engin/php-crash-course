@@ -1,7 +1,5 @@
 <?php
-    //Database Connection with PDO (more powerfull, OOP) instead mysqli
-    $pdo = new PDO('mysql:host=localhost;port=3306;dbname=products_crud', 'root', '');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    require_once "helpers/databaseConnection.php"; 
     
     //exec is not best practise
     $statment = $pdo->prepare('SELECT * FROM products ORDER BY create_date DESC');
@@ -44,7 +42,12 @@
                     <td><?php echo $product['create_date'] ?></td>
                     <td> 
                     <button type="button" class="btn btn-sm btn-outline-primary">Edit</button>
-                    <button type="button" class="btn btn-sm btn-outline-danger">Delete</button> 
+                    <form method="POST" action="delete.php">
+                        <input type="hidden" name="id" value="<?php echo $product['id'] ?>" />
+                        <button type="submit" class="btn btn-sm btn-outline-danger"> 
+                            Delete
+                        </button> 
+                    </form>
                     </td>
                 </tr>
             <?php endforeach; ?>

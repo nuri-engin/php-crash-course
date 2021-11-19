@@ -1,12 +1,18 @@
 
 <?php
+    require_once "helpers/randomString.php"; 
+
     //Database Connection with PDO (more powerfull, OOP) instead mysqli
     $pdo = new PDO('mysql:host=localhost;port=3306;dbname=products_crud', 'root', '');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    // echo randomString(8);
+    // exit;
+
     // echo '<pre>';
     // var_dump($_GET);
     // var_dump($_POST);
+    // var_dump($_FILES); // tmp_name; Apache safes the file temporary folder
     // echo '</pre>';
 
     // echo $_SERVER['REQUEST_METHOD'].'<br>';
@@ -15,6 +21,7 @@
     $title = '';
     $price = '';
     $description = '';
+
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $title = $_POST['title'];
@@ -29,8 +36,23 @@
         if (!$price) {
             $errors[] = "Please provide price!";
         }
+
+        if(!is_dir('images')) {
+            mkdir('images');
+        }
         
         if (empty($errors)) {
+
+            $image = $_FILES['image'] ?? null;
+            $imagePath = '';
+
+            if ($image && $image['tmp_name']) {
+                // Need to be sure PATH of file should be unique
+                $imagePath = 'images/'.randomString(8).'/'.$image['name'];
+                
+                mkdir(dirname($imagePath));
+                move_uploaded_file($image['tmp_name'], $imagePath);
+            }
 
             // Avoid directly to run 'exec'! SQL injection code may attempt!
             // $pdo->exec("
@@ -42,22 +64,18 @@
                 VALUES:(:title, :image, :description, :price, :date)");
 
             $statement->bindValue(':title', $title);
-            $statement->bindValue(':image', '');
+            $statement->bindValue(':image', $imagePath);
             $statement->bindValue(':description', $description);
             $statement->bindValue(':price', $price);
             $statement->bindValue(':date', $date);
-            // $statement->execute();   
+            // $statement->execute();
+            header('Location: index.php');   
         }     
     }
 ?>
 
 <?php include_once "components/header.php"; ?> 
     <h1>Create new product</h1>
-    <p>
-        <a href="create.php" class="btn btn-success">
-            Create Product
-        </a>
-    </p>
 
     <?php if (!empty($errors)): ?>
         <div class="alert alert-danger">

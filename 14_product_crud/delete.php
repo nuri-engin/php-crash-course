@@ -8,8 +8,6 @@
         exit;
     }
 
-    echo $id;
-
     $statement = $pdo->prepare('DELETE FROM products WHERE id = :id');
     $statement->bindValue(':id', $id);
     $statement->execute();

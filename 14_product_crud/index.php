@@ -10,11 +10,7 @@
 <?php include_once "components/header.php"; ?> 
     <h1>Products CRUD</h1>
 
-    <p>
-        <a href="create.php" class="btn btn-success">
-            Create Product
-        </a>
-    </p>
+    <?php require_once "components/create_btn.php"; ?>
 
     <table class="table">
         <thead>
@@ -41,7 +37,11 @@
                     <td><?php echo $product['price'] ?></td>
                     <td><?php echo $product['create_date'] ?></td>
                     <td> 
-                    <button type="button" class="btn btn-sm btn-outline-primary">Edit</button>
+                    <a 
+                        href="update.php?id=<?php echo $product['id'] ?>" 
+                        class="btn btn-sm btn-outline-primary">
+                        Edit
+                    </a>
                     <form method="POST" action="delete.php">
                         <input type="hidden" name="id" value="<?php echo $product['id'] ?>" />
                         <button type="submit" class="btn btn-sm btn-outline-danger"> 

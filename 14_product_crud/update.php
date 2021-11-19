@@ -3,16 +3,21 @@
     require_once "helpers/databaseConnection.php"; 
     require_once "helpers/randomString.php"; 
     
-    // echo randomString(8);
+
+    $id = $_GET['id'] ?? null;
+
+    if (!$id) {
+        header('Location: index.php');
+        exit;
+    }
+
+    $statement = $pdo->prepare('SELECT * FROM products WHERE id = :id');
+    $statement->bindValue(':id', $id);
+    $statement->execute();
+    $product = $statement->fetch(PDO::FETCH_ASSOC);
+
+    // echo var_dump($product);
     // exit;
-
-    // echo '<pre>';
-    // var_dump($_GET);
-    // var_dump($_POST);
-    // var_dump($_FILES); // tmp_name; Apache safes the file temporary folder
-    // echo '</pre>';
-
-    // echo $_SERVER['REQUEST_METHOD'].'<br>';
 
     $errors = [];
     $title = '';
@@ -51,12 +56,6 @@
                 move_uploaded_file($image['tmp_name'], $imagePath);
             }
 
-            // Avoid directly to run 'exec'! SQL injection code may attempt!
-            // $pdo->exec("
-            //     INSERT INTO products(title, image, description, price, create_date)
-            //     VALUES:('$title', '', '$description', $price, '$date')
-            // ");
-
             $statement = $pdo->prepare("INSERT INTO products (title, image, description, price, create_date)
                 VALUES:(:title, :image, :description, :price, :date)");
 
@@ -72,8 +71,7 @@
 ?>
 
 <?php include_once "components/header.php"; ?> 
-    <h1>Create new product</h1>
-
+    <h1>Update a product</h1>
     <?php require_once "components/goBack_btn.php"; ?>
 
     <?php if (!empty($errors)): ?>
@@ -87,6 +85,14 @@
     <?php endif ?>
 
     <form action="" method="POST" enctype="multipart/form-data">
+        <?php if ($product['image']): ?>
+            <img src="<?php echo $product['image'] ?>" class="update_image">
+        <?php elseif (!$product['image']): ?>
+            <?php echo "This product has no image!" ?>
+        <?php endif; ?>
+
+        <hr>
+
         <div class="mb-3">
             <label class="form-label">Product Image</label>
             <input type="file" name="image" class="form-control">

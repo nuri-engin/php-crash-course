@@ -13,7 +13,7 @@
         crossorigin="anonymous"
     >
 
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="index.css">
 
     <title>Products CRUD</title>
   </head>

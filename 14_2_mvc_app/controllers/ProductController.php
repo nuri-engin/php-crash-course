@@ -7,7 +7,12 @@
     {
         public function index(Router $router)
         {
-            return $router->renderView('products/index');
+            $products = $router->db->getProducts();
+
+            // Better: return $router->renderView($PATHS->PRODUCTS->index);
+            return $router->renderView('products/index',[
+                'products' => $products
+            ]);
         }
 
         public function create()

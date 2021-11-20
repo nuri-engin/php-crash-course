@@ -7,6 +7,12 @@
 
         public array $getRoutes = [];
         public array $postRoutes = [];
+        public ?Database $database = null;
+        
+        public function __construct()
+        {
+            $this->db = new Database();
+        }
 
         public function get($url, $fn)
         {
@@ -18,9 +24,16 @@
             $this->postRoutes[$url] = $fn;
         }
     
-        public function renderView($view) //Excepts: 'products/index'
+        public function renderView($view, $params = []) //Excepts: 'products/index'
         {
+            foreach ($params as $key => $value) {
+                $$key = $value;
+            }
+
+            ob_start();
             include_once __DIR__."/views/$view.php";
+            $content = ob_get_clean();
+            include_once __DIR__."/views/layouts/index.php";
         }
 
         public function resolve()

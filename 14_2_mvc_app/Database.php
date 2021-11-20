@@ -20,11 +20,11 @@
                 $statment = $this->pdo->prepare('SELECT * FROM products WHERE title LIKE :title ORDER BY create_date DESC');
                 $statment->bindValue(':title', "%$search%");
             } else {
-                //exec is not best practise
                 $statment = $this->pdo->prepare('SELECT * FROM products ORDER BY create_date DESC');
             }
 
             $statment->execute();
+            
             return $statment->fetchAll(PDO::FETCH_ASSOC); // Fetch as Associative array.
         }
     }
